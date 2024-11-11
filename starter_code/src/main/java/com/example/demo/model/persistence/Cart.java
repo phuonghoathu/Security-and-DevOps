@@ -88,10 +88,13 @@ public class Cart {
 		if(items == null) {
 			items = new ArrayList<>();
 		}
-		items.remove(item);
+		// It is a bug => if quality == 2 and current item have quality =1 => total will wrong
+		//items.remove(item);
 		if(total == null) {
 			total = new BigDecimal(0);
 		}
-		total = total.subtract(item.getPrice());
+		if (items.remove(item)) {
+			total = total.subtract(item.getPrice());
+		}
 	}
 }
